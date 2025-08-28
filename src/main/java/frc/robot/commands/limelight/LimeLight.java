@@ -3,122 +3,72 @@ package frc.robot.commands.limelight;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import frc.robot.LimelightHelpers;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 
 public class LimeLight extends Command { 
 
     private final CommandSwerveDrivetrain drivetrain;
-    private final PIDController pidY = new PIDController(0.002, 0, 0.0001);  // Forward/backward alignment
-    private final PIDController pidX = new PIDController(0.02, 0, 0.001);   // Lateral alignment
+    private final PIDController xPID = new PIDController(1, 0, 0);  // Lateral alignment PID
+    private final PIDController yPID = new PIDController(1, 0, 0);  // Forward/backward alignment PID
+    private final PIDController rotationPID = new PIDController(1, 0, 0); // Rotation PID
     private final String limelightName;
-    private final double desiredOffsetInchesY;
-    private final double desiredOffsetInchesX;
-    private final double conversionFactor = 1.0; // Inches per degree
-    private final double rotationTolerance = 2.0; // Degrees
+    private final Pose2d desiredPose;
 
-    private double previousDistance = 36.0; 
-
-    public LimeLight(CommandSwerveDrivetrain drivetrain, double desiredOffsetInchesY, double desiredOffsetInchesX, String limelight) {
+    public LimeLight(CommandSwerveDrivetrain drivetrain, Pose2d desiredPose, String limelight) {
         this.drivetrain = drivetrain;
-        this.desiredOffsetInchesY = desiredOffsetInchesY;
-        this.desiredOffsetInchesX = desiredOffsetInchesX;
+        this.desiredPose = desiredPose;
         this.limelightName = limelight;
 
         addRequirements(drivetrain);
         
-        pidY.setSetpoint(0.0);
-        pidY.setTolerance(1); 
+        yPID.setSetpoint(desiredPose.getY());
+        yPID.setTolerance(0.1); 
 
-        pidX.setSetpoint(0.0); 
-        pidX.setTolerance(0.5); 
+        xPID.setSetpoint(desiredPose.getX()); 
+        xPID.setTolerance(0.1); 
 
+        rotationPID.setSetpoint(desiredPose.getRotation().getRadians());
+        rotationPID.setTolerance(Units.degreesToRadians(2));
     }
 
     @Override
     public void execute() {
-
-
-        
+        Pose2d botPose = LimelightHelpers.getBotPose2d_wpiBlue(limelightName);
         boolean hasTarget = LimelightHelpers.getTV(limelightName);
-        double tA = LimelightHelpers.getTA(limelightName); 
-        double tx = LimelightHelpers.getTX(limelightName); // Horizontal offset
-        double ts = LimelightHelpers.getTS(limelightName); // Skew (rotation)
-
-
-        System.out.println("Using Limelight: " + limelightName);
-        System.out.println("Has Target: " + hasTarget);
-        System.out.println("TX: " + tx);
-        System.out.println("TA: " + tA);
-        System.out.println("TS: " + ts);
-        
-
-
-
-
-        if (!hasTarget) {
+    
+        if (!hasTarget || botPose == null) {
             drivetrain.setControl(drivetrain.m_pathApplyRobotSpeeds.withSpeeds(new ChassisSpeeds(0, 0, 0)));
             return;
         }
         
-        // Estimate distance using area
-        double knownDistance = 37.0;  
-        double knownArea = 2.9;    
+        double xError = botPose.getX() - desiredPose.getX();
+        double yError = botPose.getY() - desiredPose.getY();
+        double rotationError = botPose.getRotation().getRadians() - desiredPose.getRotation().getRadians();
         
-        
+        double forwardSpeed = yPID.calculate(botPose.getY());
+        double lateralSpeed = xPID.calculate(botPose.getX());
+        double rotationSpeed = rotationPID.calculate(botPose.getRotation().getRadians());
 
-        double estimatedDistance = (knownArea * knownDistance) / Math.max(tA, 0.1); 
-        double estimatedLatx = tx * conversionFactor;
-        double lateralError = estimatedLatx - desiredOffsetInchesX;
-        double estimatedAngle = ts *1;
-        double angleError = estimatedAngle - 0;
-
-        // Apply Exponential Smoothing Filter
-        double smoothingFactor = 0.8;
-        estimatedDistance = (smoothingFactor * previousDistance) + ((1 - smoothingFactor) * estimatedDistance);
-        previousDistance = estimatedDistance;
-        
-        double distanceError = estimatedDistance - desiredOffsetInchesY;
-        
-        // Deadband for forward/backward movement
-        double forwardSpeedCommand;
-        if (Math.abs(distanceError) > 10) {  
-            forwardSpeedCommand = 0.7 * Math.signum(distanceError);  
-        } else {
-            forwardSpeedCommand = -pidY.calculate(distanceError);
-        }
-        
-        // Clamp speed for safety
-        forwardSpeedCommand = Math.max(-0.7, Math.min(0.7, forwardSpeedCommand)); 
-    
-        // Lateral movement correction
-        double lateralSpeedCommand = pidX.calculate(lateralError); 
-        lateralSpeedCommand = Math.max(-0.5, Math.min(0.5, lateralSpeedCommand)); 
-    
-        // **Rotation alignment to stay parallel**
-    
-
-        System.out.println("Forward Speed Command: " + forwardSpeedCommand);
-        System.out.println("Lateral Speed Command: " + lateralSpeedCommand);
-        
-
-
-
-        // Apply forward, lateral, and rotational movement
         drivetrain.setControl(drivetrain.m_pathApplyRobotSpeeds.withSpeeds(
-            new ChassisSpeeds(forwardSpeedCommand, lateralSpeedCommand, 0)
+            new ChassisSpeeds(forwardSpeed, lateralSpeed, rotationSpeed)
         ));
     }
     
     @Override
     public boolean isFinished() {
-        return pidY.atSetpoint() && pidX.atSetpoint();
+        return xPID.atSetpoint() && yPID.atSetpoint() && rotationPID.atSetpoint();
     }
     
     @Override
     public void end(boolean interrupted) {
         drivetrain.setControl(drivetrain.m_pathApplyRobotSpeeds.withSpeeds(new ChassisSpeeds(0, 0, 0)));
-        pidY.reset();
-        pidX.reset();
+        xPID.reset();
+        yPID.reset();
+        rotationPID.reset();
     }
 }

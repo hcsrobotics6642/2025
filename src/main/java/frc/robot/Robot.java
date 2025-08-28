@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
 
   private final RobotContainer m_robotContainer;
 
-  private final boolean kUseLimelight = false;
+  private final boolean kUseLimelight = true;
   //private final IntakePivot m_IntakePivot;
   //private final IntakePivotA m_IntakePivotA;
   public Robot() {
@@ -44,17 +44,29 @@ public class Robot extends TimedRobot {
      * of how to use vision should be tuned per-robot and to the team's specification.
      */
     if (kUseLimelight) {
+      // Get the current robot state for both Limelights
       var driveState = m_robotContainer.drivetrain.getState();
       double headingDeg = driveState.Pose.getRotation().getDegrees();
       double omegaRps = Units.radiansToRotations(driveState.Speeds.omegaRadiansPerSecond);
-
-      LimelightHelpers.SetRobotOrientation("limelight", headingDeg, 0, 0, 0, 0, 0);
-      var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
-      if (llMeasurement != null && llMeasurement.tagCount > 0 && omegaRps < 2.0) {
-        m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
+  
+      // Set the robot's orientation for both Limelights
+      LimelightHelpers.SetRobotOrientation("limelight-left", headingDeg, 0, 0, 0, 0, 0);
+      LimelightHelpers.SetRobotOrientation("limelight-right", headingDeg, 0, 0, 0, 0, 0);
+  
+      // Get the pose from the first Limelight and add to odometry
+      var llMeasurement1 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-left");
+      if (llMeasurement1 != null && llMeasurement1.tagCount > 0 && omegaRps < 2.0) {
+        m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement1.pose, Utils.fpgaToCurrentTime(llMeasurement1.timestampSeconds));
+      }
+  
+      // Get the pose from the second Limelight and add to odometry
+      var llMeasurement2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-right");
+      if (llMeasurement2 != null && llMeasurement2.tagCount > 0 && omegaRps < 2.0) {
+        m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement2.pose, Utils.fpgaToCurrentTime(llMeasurement2.timestampSeconds));
       }
     }
   }
+  
 
 
   @Override

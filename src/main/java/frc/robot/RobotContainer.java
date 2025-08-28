@@ -15,6 +15,8 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -183,9 +185,9 @@ drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negat
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single frog.
 
-        joystick2.L().whileTrue(new LimeLight(drivetrain, .5,0,"limelight-left"));
-        joystick2.R().whileTrue(new LimeLight(drivetrain, .5,0,"limelight-right"));
-
+        //joystick2.L().whileTrue(new LimeLight(drivetrain, .5,0,"limelight-left"));
+        //joystick2.R().whileTrue(new LimeLight(drivetrain, .5,0,"limelight-right"));
+        joystick2.R().whileTrue(new LimeLight(drivetrain, new Pose2d(84, 60, Rotation2d.fromDegrees(90)), "limelight-left"));
 //15.5
         //gamepad.b().onTrue(new RunIntakeOpenLoop(m_IntakePivotA, ArmConstants.APivotGrab));
         //gamepad.y().onTrue(new RunIntakeOpenLoop(m_IntakePivotA, ArmConstants.APivotStow));
