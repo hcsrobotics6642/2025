@@ -31,7 +31,52 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "L1",
+      "waypointRelativePos": 0.09694793536804301,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L1"
+        }
+      }
+    },
+    {
+      "name": "HumanStation",
+      "waypointRelativePos": 0.8994614003590627,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "HumanStation"
+        }
+      }
+    },
+    {
+      "name": "IntakeSuck",
+      "waypointRelativePos": 0.904847396768399,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeSuck"
+        }
+      }
+    },
+    {
+      "name": "WaitCommand_1s",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "WaitCommand_1s"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -42,7 +87,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 124.82448915695674
+    "rotation": -53.47730833465319
   },
   "reversed": false,
   "folder": null,

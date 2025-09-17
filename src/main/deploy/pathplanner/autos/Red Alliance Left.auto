@@ -7,31 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Score Coral 1"
+            "pathName": "Red Left Start"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Get Coral 1"
+            "pathName": "Red Left To Coral 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Score Coral 2"
+            "pathName": "Red Back to Reef"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Get Coral 2"
+            "pathName": "RedGetCoral3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Score Coral 3"
+            "pathName": "RedScoreCoral3"
           }
         }
       ]

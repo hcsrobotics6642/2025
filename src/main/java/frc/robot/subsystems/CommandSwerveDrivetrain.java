@@ -197,29 +197,26 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private void configureAutoBuilder() {
         try {
             var config = RobotConfig.fromGUISettings();
+            DriverStation.reportWarning("PathPlanner RobotConfig loaded successfully. If events still fail, check marker configs in GUI/JSON.", false);
             AutoBuilder.configure(
-                () -> getState().Pose,   // Supplier of current robot pose
+                () -> getState().Pose,   // Pose supplier
                 this::resetPose,         // Consumer for seeding pose against auto
-                () -> getState().Speeds, // Supplier of current robot speeds
-                // Consumer of ChassisSpeeds and feedforwards to drive the robot
+                () -> getState().Speeds, // Current robot-relative chassis speeds supplier
                 (speeds, feedforwards) -> setControl(
                     m_pathApplyRobotSpeeds.withSpeeds(speeds)
                         .withWheelForceFeedforwardsX(feedforwards.robotRelativeForcesXNewtons())
                         .withWheelForceFeedforwardsY(feedforwards.robotRelativeForcesYNewtons())
                 ),
                 new PPHolonomicDriveController(
-                    // PID constants for translation
-                    new PIDConstants(10, 0, 0),
-                    // PID constants for rotation
-                    new PIDConstants(7, 0, 0)
+                    new PIDConstants(5.0, 0.0, 0.0), // Translation PID (example; tune empirically or with SysId)
+                    new PIDConstants(5.0, 0.0, 0.0) // Rotation PID (example; tune)
                 ),
                 config,
-                // Assume the path needs to be flipped for Red vs Blue, this is normally the case
                 () -> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red,
-                this // Subsystem for requirements
+                this // Subsystem requirement
             );
         } catch (Exception ex) {
-            DriverStation.reportError("Failed to load PathPlanner config and configure AutoBuilder", ex.getStackTrace());
+            DriverStation.reportError("Failed to load PathPlanner RobotConfig and configure AutoBuilder. Events won't trigger—deploy GUI settings! Error: " + ex.getMessage(), ex.getStackTrace());
         }
     }
 

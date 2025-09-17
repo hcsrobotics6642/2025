@@ -10,61 +10,47 @@ public class constants {
     public static class CANConfig {
         public static final int ELEVATOR_FRONT = 30;
         public static final int ELEVATOR_BACK = 31;
-        public static final int ALGAE_PIVOT = 40;
+        //public static final int ALGAE_PIVOT = 40;
         public static final int CORAL_PIVOT_LEFT = 21;
         public static final int CORAL_RUN_LEFT = 22;
         public static final int CORAL_RUN_RIGHT = 23;
+        //public static final int ALGAE_INTAKE_RIGHT = 42;
+        //public static final int CLIMBER = 59;
+        public static final int LaserId = 73;
+    }
 
-
-        public static final int ALGAE_INTAKE_RIGHT = 42;
-        public static final int CLIMBER = 59;
-
-
-      }
-
-      public static class SystemConfig {
-        public static final double ELEVATOR_SPEED = .5;
+    public static class SystemConfig {
+        public static final double ELEVATOR_SPEED = 0.5;
         public static final double PIVOT_SPEED = 0.5;
         public static final double ALGAE_INTAKE_SPEED = 0.5;
         public static final double CORAL_INTAKE_SPEED = 0.15;
-      }
-
-        public static class VisionConstants {
-    public static final String LIMELIGHT_LEFT_NAME = "limelight-left";
-    public static final String LIMELIGHT__RIGHT_NAME = "limelight-right";
-    public static final Distance LIMELIGHT_LENS_HEIGHT = Distance.ofBaseUnits(8, Inches);
-    public static final Angle LIMELIGHT_ANGLE = Angle.ofBaseUnits(0, Degrees);
-
-    public static final Distance REEF_APRILTAG_HEIGHT = Distance.ofBaseUnits(12.13, Inches);
-    public static final Distance PROCCESSOR_APRILTAG_HEIGHT = Distance.ofBaseUnits(51.25, Inches);
-    public static final Distance CORAL_APRILTAG_HEIGHT = Distance.ofBaseUnits(58.5, Inches);
-  }
-
-      public static class ArmConstants  {
-
-        public static final double kUpperLimit = 0;
-        public static final double kLowerLimit = -30000;
-        public static final double kTolearance = 2;
-        public static final double kManualSpeed = 0.3;
-        public static final double L1pos = -1.7;
-        public static final double L2pos = -45;
-        public static final double L3pos = -86.7;
-        public static final double L4pos = -146.7;
-        public static final double Lstowpos = 40;
-        public static final double CPivotStow = .83;
-        public static final double CPivotScore = .300;
-
-
-
-
-
-
-        public static final double APivotGrab = .1;
-        public static final double APivotStow = 8;
-
-
-
-      }
-
-
     }
+
+    public static class VisionConstants {
+        public static final String LIMELIGHT_LEFT_NAME = "limelight-left";
+        public static final String LIMELIGHT_RIGHT_NAME = "limelight-right";
+        public static final Distance LIMELIGHT_LENS_HEIGHT = Distance.ofBaseUnits(8, Inches);
+        public static final Angle LIMELIGHT_ANGLE = Angle.ofBaseUnits(0, Degrees);
+        public static final Distance REEF_APRILTAG_HEIGHT = Distance.ofBaseUnits(12.13, Inches);
+        public static final Distance PROCCESSOR_APRILTAG_HEIGHT = Distance.ofBaseUnits(51.25, Inches);
+        public static final Distance CORAL_APRILTAG_HEIGHT = Distance.ofBaseUnits(58.5, Inches);
+    }
+
+    public static class ArmConstants {
+        public static final double kUpperLimit = 0; // Rotations, for other subsystems (e.g., climber)
+        public static final double kLowerLimit = -134.03; // Rotations, ~50 inches for other subsystems
+        public static final double kElevatorUpperLimit = 0; // Inches, for Elevator
+        public static final double kElevatorLowerLimit = -50; // Inches, adjust to measured max
+        public static final double kTolearance = 0.5; // Inches, for elevator PID
+        public static final double kManualSpeed = 0.3;
+        public static final double L1pos = -0.6342; // Inches, from -1.7 rotations
+        public static final double L2pos = -16.7873; // Inches, from -45 rotations
+        public static final double L3pos = -32.3434; // Inches, from -86.7 rotations
+        public static final double L4pos = -54.7234; // Inches, from -146.7 rotations
+        //public static final double Lstowpos = 14.9220; // Inches, from 40 rotations
+        public static final double CPivotStow = 0.83; // Rotations (IntakePivot, absolute encoder)
+        public static final double CPivotScore = 0.300; // Rotations
+        public static final double APivotGrab = 0.1; // Rotations (IntakePivotA, relative encoder)
+        public static final double APivotStow = 8; // Rotations (check if needs inch conversion)
+    }
+}

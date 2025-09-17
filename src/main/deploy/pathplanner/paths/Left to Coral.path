@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.319092465753425,
-        "y": 5.069285102739726
+        "x": 5.319191919197001,
+        "y": 5.214204545459626
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.0851193280285205,
-        "y": 4.731337959876403
+        "x": 6.040845959601042,
+        "y": 5.173547979803061
       },
       "isLocked": false,
       "linkedName": "Left Start End"
@@ -31,7 +31,52 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "IntakeSuck",
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "IntakeSuck"
+        }
+      }
+    },
+    {
+      "name": "WaitCommand_1s",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "WaitCommand_1s"
+        }
+      }
+    },
+    {
+      "name": "L1",
+      "waypointRelativePos": 0.19928186714542165,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L1"
+        }
+      }
+    },
+    {
+      "name": "HumanStation",
+      "waypointRelativePos": 0.9016949152542381,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "HumanStation"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -42,13 +87,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 124.82448915695674
+    "rotation": -53.47730833465319
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -127.87498365109816
+    "rotation": -119.21787714736644
   },
   "useDefaultConstraints": true
 }

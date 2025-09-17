@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3461647727272728,
-        "y": 7.04140625
+        "x": 16.328042763157892,
+        "y": 0.994161184210526
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.653392369105925,
-        "y": 6.949805951458441
+        "x": 15.904687499999998,
+        "y": 1.359786184210526
       },
       "isLocked": false,
-      "linkedName": "coralStation1"
+      "linkedName": "Red Coral Station"
     },
     {
       "anchor": {
-        "x": 3.6766666666666663,
-        "y": 5.129294871794871
+        "x": 13.624342105263157,
+        "y": 2.7068256578947363
       },
       "prevControl": {
-        "x": 2.0013157894736833,
-        "y": 6.468914473684211
+        "x": 14.153536184210525,
+        "y": 2.2642269736842104
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "scoreCoral2"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,37 +33,22 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
+      "name": "IntakeSuck",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
       "name": "L3",
-      "waypointRelativePos": 0.49730700179533094,
+      "waypointRelativePos": 0.6068222621184902,
       "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "L3"
-        }
-      }
+      "command": null
     },
     {
-      "name": "Place the Coral",
+      "name": "IntakeSpit",
       "waypointRelativePos": 1.0,
       "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "ShootCoralAuto"
-        }
-      }
-    },
-    {
-      "name": "WaitCommand_1s",
-      "waypointRelativePos": 1.0,
-      "endWaypointRelativePos": null,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "WaitCommand_1s"
-        }
-      }
+      "command": null
     }
   ],
   "globalConstraints": {
@@ -76,13 +61,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -61.38954033403479
+    "rotation": 118.49563861824511
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -53.47730833465319
+    "rotation": 124.65131591200445
   },
   "useDefaultConstraints": true
 }

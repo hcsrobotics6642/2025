@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.093056766160466,
-        "y": 5.160975963727458
+        "x": 8.056678113074957,
+        "y": 5.139071188939034
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.319092465753425,
-        "y": 5.069285102739726
+        "x": 5.319191919197001,
+        "y": 5.214204545459626
       },
       "prevControl": {
-        "x": 5.049849637355548,
-        "y": 5.005100947946638
+        "x": 5.069325136708462,
+        "y": 5.206044214043234
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,7 +31,41 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "L3",
+      "waypointRelativePos": 0.25493716337522593,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "L3"
+        }
+      }
+    },
+    {
+      "name": "Place the Coral",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "ShootCoralAuto"
+        }
+      }
+    },
+    {
+      "name": "WaitCommand_1s",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "WaitCommand_1s"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -42,7 +76,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -127.87498365109816
+    "rotation": -119.21787714736644
   },
   "reversed": false,
   "folder": null,
