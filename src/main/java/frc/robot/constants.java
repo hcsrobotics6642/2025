@@ -10,12 +10,12 @@ public class constants {
     public static class CANConfig {
         public static final int ELEVATOR_FRONT = 30;
         public static final int ELEVATOR_BACK = 31;
-        //public static final int ALGAE_PIVOT = 40;
+        public static final int ALGAE_PIVOT = 40;
         public static final int CORAL_PIVOT_LEFT = 21;
         public static final int CORAL_RUN_LEFT = 22;
         public static final int CORAL_RUN_RIGHT = 23;
-        //public static final int ALGAE_INTAKE_RIGHT = 42;
-        //public static final int CLIMBER = 59;
+        public static final int ALGAE_INTAKE_RIGHT = 42;
+        public static final int CLIMBER = 59;
         public static final int LaserId = 73;
     }
 

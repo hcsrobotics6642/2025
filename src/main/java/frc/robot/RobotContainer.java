@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 
+import frc.robot.commands.SeedPose;
 import java.lang.reflect.WildcardType;
 import frc.robot.commands.limelight.AlignToAprilTagWithOffset;
 import frc.robot.commands.limelight.AlignToAprilTagWithOffset.AlignmentPosition;
@@ -149,6 +150,7 @@ SequentialCommandGroup L4 = new SequentialCommandGroup(
         NamedCommands.registerCommand("ShootCoralAuto", new ShootCoralTimed(m_intake)); // Alias for mismatch in "Left Start.path"
         NamedCommands.registerCommand("HumanStation", CStow);
         NamedCommands.registerCommand("WaitCommand_1s", new WaitCommand(1));
+        NamedCommands.registerCommand("SeedPose", new SeedPose(drivetrain, constants.VisionConstants.LIMELIGHT_LEFT_NAME));
         // Ensure PathPlanner marker names exactly match these (case-sensitive). Add named commands to markers in GUI via + button.
     }
 
