@@ -55,7 +55,7 @@ public class RobotContainer {
     private final climber m_climber = new climber();
     private final IntakePivotA m_IntakePivotA = new IntakePivotA();
     final IntakePivot m_IntakePivot = new IntakePivot();
-    private final intake m_intake = new intake(0);
+    private final intake m_intake = new intake();
 
     /* Setting up bindings for necessary control of the swerve drive platform */
     private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()

@@ -17,7 +17,11 @@ public class constants {
         public static final int ALGAE_INTAKE_RIGHT = 42;
         public static final int CLIMBER = 59;
         public static final int LaserId = 73;
+        public static final int INTAKE_LASER_SENSOR = 61; // Exit sensor
+        public static final int INTAKE_LASER_ENTRY_SENSOR = 62; // New entry sensor
     }
+
+    
 
     public static class SystemConfig {
         public static final double ELEVATOR_SPEED = 0.5;
